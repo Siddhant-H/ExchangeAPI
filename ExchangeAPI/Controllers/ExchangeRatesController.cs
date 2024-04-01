@@ -16,14 +16,11 @@ namespace ExchangeAPI.Controllers
 
         private readonly IConfiguration _configuration;
 
-        //private readonly ConvertionHelper _convertionHelper;
-
         public ExchangeRatesController(ILogger<ExchangeRatesController> logger, AppDbContext context, IConfiguration configuration/*, ConvertionHelper convertionHelper*/)
         {
             _logger = logger;
             _context = context;
             _configuration = configuration;
-           // _convertionHelper = convertionHelper;
         }
 
 
@@ -233,31 +230,6 @@ namespace ExchangeAPI.Controllers
             };
         }
 
-
-        //[HttpGet]
-        //public async Task<IActionResult> FetchExchangeRates(string start_date, string end_date)
-        //{
-        //    try
-        //    {
-        //        HttpClient _httpClient = new HttpClient();
-        //        HttpResponseMessage response = await _httpClient.GetAsync("http://api.exchangeratesapi.io/v1/timeseries?access_key=ec1967c1d36eb4a91076b7c7cb42156f&start_date="+start_date+"&end_date="+end_date);
-        //        response.EnsureSuccessStatusCode();
-
-        //        // Read the content of the response
-        //        string responseBody = await response.Content.ReadAsStringAsync();
-
-        //        // Return the response body as Ok result
-        //        return Ok(responseBody);
-        //    }
-        //    catch (HttpRequestException ex)
-        //    {
-        //        return StatusCode(500, $"Failed to fetch exchange rates from external API: {ex.Message}");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
 
     }
 }
