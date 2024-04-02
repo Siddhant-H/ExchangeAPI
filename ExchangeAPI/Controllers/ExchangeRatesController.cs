@@ -201,22 +201,31 @@ namespace ExchangeAPI.Controllers
             }
         }
 
-        [HttpGet("AverageExchangeRate")]
-        public IActionResult GetAverageExchangeRateForCurrency(DateTime startDate, DateTime endDate, string currency)
+        [HttpPost("AverageExchangeRate")]
+        public IActionResult GetAverageExchangeRateForCurrencies(DateTime startDate, DateTime endDate, string[] currencies)
         {
             DateTime utcStartDate = startDate.ToUniversalTime();
             DateTime utcEndDate = endDate.ToUniversalTime();
 
-            var averageExchangeRate = _context.exchangerates
-                .Where(e => e.date >= utcStartDate && e.date <= utcEndDate)
-                .Average(GetCurrencyValue(currency));
+            var result = new List<object>();
 
-            return Ok(new
+            foreach (var currency in currencies)
             {
-                Currency = currency.ToUpper(),
-                AverageExchangeRate = averageExchangeRate
-            });
+                var averageExchangeRate = _context.exchangerates
+                    .Where(e => e.date >= utcStartDate && e.date <= utcEndDate)
+                    .Average(GetCurrencyValue(currency));
+
+                result.Add(new
+                {
+                    Currency = currency.ToUpper(),
+                    AverageExchangeRate = averageExchangeRate
+                });
+            }
+
+            return Ok(result);
         }
+
+
 
         private Func<exchangerates, decimal> GetCurrencyValue(string currency)
         {
