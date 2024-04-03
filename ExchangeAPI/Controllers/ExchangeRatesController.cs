@@ -1,4 +1,5 @@
 using ExchangeAPI.Model;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -6,7 +7,7 @@ using System.Net.Http;
 namespace ExchangeAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ExchangeRatesController : ControllerBase
     {
 
@@ -16,7 +17,7 @@ namespace ExchangeAPI.Controllers
 
         private readonly IConfiguration _configuration;
 
-        public ExchangeRatesController(ILogger<ExchangeRatesController> logger, AppDbContext context, IConfiguration configuration/*, ConvertionHelper convertionHelper*/)
+        public ExchangeRatesController(ILogger<ExchangeRatesController> logger, AppDbContext context, IConfiguration configuration)
         {
             _logger = logger;
             _context = context;
